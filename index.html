@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stilt Houses - Academic Reading Practice</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f4efe6;
+      --card-bg: #ffffff;
+      --card-alt: #faf8f5;
+      --border-color: #e4dcd0;
+      --text-main: #2d261e;
+      --text-muted: #6b5e51;
+      --accent-color: #c2410c;
+      --accent-hover: #9a3412;
+      --vintage-gold: #b45309;
+      --correct-bg: #dcfce7;
+      --correct-border: #22c55e;
+      --correct-text: #15803d;
+      --wrong-bg: #fee2e2;
+      --wrong-border: #ef4444;
+      --wrong-text: #b91c1c;
+      --explanation-bg: #eff6ff;
+      --explanation-border: #3b82f6;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+
+    /* Top Banner Header */
+    .top-header {
+      background-color: #2c221e;
+      color: #e6dfd5;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      border-bottom: 3px solid var(--vintage-gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-header .author-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .top-header .badge-tag {
+      background-color: var(--vintage-gold);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: 25px auto;
+      padding: 0 20px;
+    }
+
+    /* 2 Column Layout */
+    .reading-layout {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .reading-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Reading Column (Left) */
+    .reading-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px 40px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .article-header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .article-tag {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--vintage-gold);
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .article-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #1e1b18;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .article-subtitle {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .reading-content {
+      font-family: 'Lora', serif;
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: #24201d;
+    }
+
+    .paragraph-block {
+      margin-bottom: 22px;
+      text-align: justify;
+      position: relative;
+    }
+
+    .para-letter {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--vintage-gold);
+      margin-right: 6px;
+      font-size: 1.15rem;
+    }
+
+    /* Academic Vocabulary Mark */
+    .vocab-mark {
+      border-bottom: 1.5px dotted var(--accent-color);
+      color: var(--accent-color);
+      font-weight: 600;
+      cursor: pointer;
+      padding-bottom: 1px;
+      transition: background-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .vocab-mark:hover {
+      background-color: rgba(194, 65, 12, 0.08);
+      color: var(--accent-hover);
+    }
+
+    /* Vocabulary Popup */
+    .vocab-popup {
+      position: absolute;
+      background: #ffffff;
+      border: 1px solid #d97706;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: var(--shadow-lg);
+      width: 320px;
+      z-index: 1000;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #1f2937;
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f3f4f6;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .popup-word-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    .popup-type-tag {
+      background-color: #ffedd5;
+      color: #c2410c;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .popup-close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+      color: #9ca3af;
+      padding: 0 4px;
+    }
+
+    .popup-close:hover {
+      color: #374151;
+    }
+
+    .popup-ipa {
+      color: #6b7280;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-family: monospace;
+    }
+
+    .btn-audio {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.1s;
+    }
+
+    .btn-audio:hover {
+      transform: scale(1.15);
+    }
+
+    .popup-meaning {
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .popup-synonyms {
+      font-size: 0.82rem;
+      color: #4b5563;
+      margin-bottom: 8px;
+      background: #f9fafb;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .popup-quote {
+      font-size: 0.82rem;
+      color: #6b7280;
+      font-style: italic;
+      border-left: 2px solid var(--accent-color);
+      padding-left: 8px;
+    }
+
+    /* Vocabulary Summary Table */
+    .vocab-table-wrapper {
+      margin-top: 40px;
+      border-top: 2px solid var(--border-color);
+      padding-top: 25px;
+    }
+
+    .vocab-table-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      color: #2c221e;
+      margin-bottom: 16px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .vocab-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .vocab-table th {
+      background-color: #2c221e;
+      color: #f4efe6;
+      font-weight: 600;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .vocab-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1ece4;
+      color: #374151;
+    }
+
+    .vocab-table tr:nth-child(even) {
+      background-color: #faf8f5;
+    }
+
+    .vocab-table tr:hover {
+      background-color: #f4eee4;
+    }
+
+    .vocab-table .word-cell {
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    /* Right Column: Quiz Section */
+    .quiz-column {
+      position: relative;
+    }
+
+    /* Sticky Score Header */
+    .score-sticky-bar {
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      background: #2c221e;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border: 1px solid #4a3b34;
+    }
+
+    .score-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-display {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fbbf24;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(251, 191, 36, 0.4);
+    }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-header-box {
+      background-color: #faf8f5;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--vintage-gold);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 18px 0 14px 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #2c221e;
+    }
+
+    .section-header-box:first-of-type {
+      margin-top: 0;
+    }
+
+    .question-item {
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .question-item:last-child {
+      border-bottom: none;
+      margin-bottom: 10px;
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1f2937;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .question-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tf-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #fafaf9;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .option-label:hover {
+      background: #f4f0eb;
+      border-color: #d1d5db;
+    }
+
+    .option-label input[type="radio"] {
+      margin-right: 10px;
+      accent-color: var(--accent-color);
+    }
+
+    .input-text {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      background-color: #fafaf9;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-text:focus {
+      border-color: var(--accent-color);
+      background-color: #ffffff;
+    }
+
+    .dual-input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* Feedback & Highlight Styling */
+    .option-label.is-correct, .input-text.is-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: var(--correct-text) !important;
+      font-weight: 600;
+    }
+
+    .option-label.is-wrong, .input-text.is-wrong {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: var(--wrong-text) !important;
+      font-weight: 600;
+    }
+
+    .explanation-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background-color: var(--explanation-bg);
+      border-left: 4px solid var(--explanation-border);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: none;
+      animation: fadeIn 0.3s;
+    }
+
+    .exp-evidence {
+      color: #1e40af;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+    }
+
+    .exp-text {
+      color: #1e3a8a;
+      line-height: 1.45;
+    }
+
+    /* Actions Bar */
+    .actions-bar {
+      display: flex;
+      gap: 14px;
+      margin-top: 25px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit {
+      background-color: var(--accent-color);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
+    }
+
+    .btn-submit:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-reset {
+      background-color: #6b7280;
+      color: #fff;
+    }
+
+    .btn-reset:hover {
+      background-color: #4b5563;
+    }
+
+    /* Mobile Responsive tweaks */
+    @media (max-width: 640px) {
+      .reading-card {
+        padding: 22px 18px;
+      }
+      .quiz-card {
+        padding: 20px 16px;
+      }
+      .article-title {
+        font-size: 1.6rem;
+      }
+      .reading-content {
+        font-size: 1rem;
+      }
+      .score-sticky-bar {
+        padding: 10px 14px;
+      }
+      .score-title {
+        font-size: 0.9rem;
+      }
+      .score-display {
+        font-size: 1.1rem;
+      }
+      .vocab-popup {
+        width: 280px;
+      }
+      .dual-input-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Informational Banner -->
+  <header class="top-header">
+    <div class="author-badge">
+      <span class="badge-tag">Academic Reading</span>
+      <span>Đỗ Thị Huyền THCS Thân Nhân Trung 0982036952 - Academic Reading</span>
+    </div>
+    <div style="font-size: 0.8rem; opacity: 0.85;">Unit 3: Peoples of Viet Nam • Skills 1 Reading</div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <main class="reading-layout">
+
+      <!-- LEFT COLUMN: Reading Article & Vocabulary -->
+      <section class="reading-column">
+        <article class="reading-card">
+          <div class="article-header">
+            <div class="article-tag">Reading Comprehension • Ethnic Minority Culture</div>
+            <h1 class="article-title">STILT HOUSES</h1>
+            <p class="article-subtitle">Traditional Architecture and Heritage of Vietnamese Ethnic Minorities</p>
+          </div>
+
+          <div class="reading-content" id="passageContent">
+            <!-- Paragraph A -->
+            <p class="paragraph-block">
+              <span class="para-letter">[A]</span>
+              <span class="vocab-mark" data-word="stilt house" data-type="noun" data-ipa="/stɪlt haʊs/" data-meaning="nhà sàn" data-synonym="pile dwelling" data-quote="Stilt houses are popular among different ethnic minority groups...">Stilt houses</span> are popular among different <span class="vocab-mark" data-word="ethnic minority" data-type="noun" data-ipa="/ˈeθnɪk maɪˈnɒrəti/" data-meaning="dân tộc thiểu số" data-synonym="minority group" data-quote="popular among different ethnic minority groups">ethnic minority</span> groups, from the Thai in the Northern Highlands to the Khmer in the Mekong Delta. The houses come in different sizes and styles, and show the <span class="vocab-mark" data-word="traditional" data-type="adj" data-ipa="/trəˈdɪʃənl/" data-meaning="truyền thống, lâu đời" data-synonym="customary, ancestral" data-quote="show the traditional culture of their owners">traditional</span> culture of their owners.
+            </p>
+
+            <!-- Paragraph B -->
+            <p class="paragraph-block">
+              <span class="para-letter">[B]</span>
+              Stilt houses are made from <span class="vocab-mark" data-word="natural material" data-type="noun" data-ipa="/ˈnætʃrəl məˈtɪəriəl/" data-meaning="vật liệu tự nhiên" data-synonym="organic material" data-quote="made from natural materials like wood, bamboo, and leaves">natural materials</span> like wood, bamboo, and leaves. They stand on strong <span class="vocab-mark" data-word="post" data-type="noun" data-ipa="/pəʊst/" data-meaning="cột chống, cột nhà sàn" data-synonym="pillar, pole, column" data-quote="They stand on strong posts, about two or three metres above the ground.">posts</span>, about two or three metres above the ground. This allows them to keep people safe from wild animals. People climb a seven- or nine-step <span class="vocab-mark" data-word="staircase" data-type="noun" data-ipa="/ˈsteəkeɪs/" data-meaning="cầu thang, thang bộ gác nhà" data-synonym="stairs, steps" data-quote="People climb a seven- or nine-step staircase to enter the house.">staircase</span> to enter the house. The most important place in the house is the kitchen. It has an <span class="vocab-mark" data-word="open fire" data-type="noun" data-ipa="/ˌəʊpən ˈfaɪər/" data-meaning="bếp lửa mở (không có ống khói kín)" data-synonym="hearth, fireplace" data-quote="It has an open fire in the middle of the house.">open fire</span> in the middle of the house. It is the place for family <span class="vocab-mark" data-word="gathering" data-type="noun" data-ipa="/ˈɡæðərɪŋ/" data-meaning="buổi sum họp, tụ họp gia đình" data-synonym="reunion, assembly, get-together" data-quote="It is the place for family gatherings and receiving guests.">gatherings</span> and receiving guests.
+            </p>
+
+            <!-- Paragraph C -->
+            <p class="paragraph-block">
+              <span class="para-letter">[C]</span>
+              The stilt houses of the Tay and Nung usually <span class="vocab-mark" data-word="overlook" data-type="verb" data-ipa="/ˌəʊvəˈlʊk/" data-meaning="nhìn ra, trông ra hướng" data-synonym="face, look out onto, command a view of" data-quote="usually overlook a field">overlook</span> a field. The stilt houses of the Thai, however, face mountains or a forest. The Bahnar and Ede have a <span class="vocab-mark" data-word="communal house" data-type="noun" data-ipa="/kəˈmjuːnl haʊs/" data-meaning="nhà rông, nhà sinh hoạt cộng đồng" data-synonym="community hall, village house" data-quote="The Bahnar and Ede have a communal house (called a Rong house) as the heart of their village.">communal house</span> (called a <span class="vocab-mark" data-word="Rong house" data-type="noun" data-ipa="/rɔːŋ haʊs/" data-meaning="nhà Rông (Tây Nguyên)" data-synonym="communal village house" data-quote="called a Rong house as the heart of their village">Rong house</span>) as the heart of their village. These communal houses are the largest and tallest ones in the village.
+            </p>
+          </div>
+
+          <!-- Vocabulary Table -->
+          <div class="vocab-table-wrapper">
+            <h3 class="vocab-table-title">📖 Academic Vocabulary & Key Terms</h3>
+            <div class="table-container">
+              <table class="vocab-table">
+                <thead>
+                  <tr>
+                    <th>📖 Word / Phrase</th>
+                    <th>🔊 IPA</th>
+                    <th>🇻🇳 Meaning</th>
+                    <th>🔁 Synonym(s)</th>
+                  </tr>
+                </thead>
+                <tbody id="vocabTableBody">
+                  <!-- Rendered via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- RIGHT COLUMN: Interactive Quiz & Sticky Header -->
+      <section class="quiz-column">
+        <!-- Sticky Score Display -->
+        <div class="score-sticky-bar">
+          <div class="score-title">
+            <span>📊</span> READING SCORE:
+          </div>
+          <div class="score-display" id="scoreDisplay">0 / 11</div>
+        </div>
+
+        <div class="quiz-card">
+          <form id="quizForm">
+            <!-- EXERCISE 1 -->
+            <div class="section-header-box">
+              1. Vocabulary: Write the words/phrases under the pictures
+            </div>
+
+            <!-- Q1 -->
+            <div class="question-item" id="q-block-1">
+              <div class="question-title"><strong>Picture 1:</strong> The wooden steps used to enter a stilt house</div>
+              <div class="question-options">
+                <label class="option-label" id="label-1-staircase">
+                  <input type="radio" name="q1" value="staircase">
+                  <span><strong>A.</strong> staircase (cầu thang)</span>
+                </label>
+                <label class="option-label" id="label-1-posts">
+                  <input type="radio" name="q1" value="posts">
+                  <span><strong>B.</strong> posts (cột chống)</span>
+                </label>
+                <label class="option-label" id="label-1-open fire">
+                  <input type="radio" name="q1" value="open fire">
+                  <span><strong>C.</strong> open fire (bếp lửa mở)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-1">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> "People climb a seven- or nine-step staircase to enter the house."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Tranh 1 mô tả bậc cầu thang dẫn lên nhà sàn => <strong>staircase</strong>.</div>
+              </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-item" id="q-block-2">
+              <div class="question-title"><strong>Picture 2:</strong> The fireplace in the middle of the kitchen for cooking & gathering</div>
+              <div class="question-options">
+                <label class="option-label" id="label-2-open fire">
+                  <input type="radio" name="q2" value="open fire">
+                  <span><strong>A.</strong> open fire (bếp lửa mở)</span>
+                </label>
+                <label class="option-label" id="label-2-staircase">
+                  <input type="radio" name="q2" value="staircase">
+                  <span><strong>B.</strong> staircase (cầu thang)</span>
+                </label>
+                <label class="option-label" id="label-2-posts">
+                  <input type="radio" name="q2" value="posts">
+                  <span><strong>C.</strong> posts (cột chống)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-2">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> "It has an open fire in the middle of the house. It is the place for family gatherings and receiving guests."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Tranh 2 mô tả hai người ngồi quây quần bên đống lửa ở giữa nhà => <strong>open fire</strong>.</div>
+              </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-item" id="q-block-3">
+              <div class="question-title"><strong>Picture 3:</strong> The tall, strong wooden pillars that support the house</div>
+              <div class="question-options">
+                <label class="option-label" id="label-3-posts">
+                  <input type="radio" name="q3" value="posts">
+                  <span><strong>A.</strong> posts (cột nhà sàn)</span>
+                </label>
+                <label class="option-label" id="label-3-open fire">
+                  <input type="radio" name="q3" value="open fire">
+                  <span><strong>B.</strong> open fire (bếp lửa mở)</span>
+                </label>
+                <label class="option-label" id="label-3-staircase">
+                  <input type="radio" name="q3" value="staircase">
+                  <span><strong>C.</strong> staircase (cầu thang)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-3">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> "They stand on strong posts, about two or three metres above the ground."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Tranh 3 thể hiện các cột trụ to bằng gỗ nâng sàn nhà cao hơn mặt đất => <strong>posts</strong>.</div>
+              </div>
+            </div>
+
+            <!-- EXERCISE 2 -->
+            <div class="section-header-box">
+              2. Reading Comprehension: Tick True (T) or False (F)
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-item" id="q-block-4">
+              <div class="question-title">1. Only a few minority groups live in stilt houses.</div>
+              <div class="tf-options">
+                <label class="option-label" id="label-4-T">
+                  <input type="radio" name="q4" value="T">
+                  <span><strong>True</strong> (Đúng)</span>
+                </label>
+                <label class="option-label" id="label-4-F">
+                  <input type="radio" name="q4" value="F">
+                  <span><strong>False</strong> (Sai)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-4">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [A]: "Stilt houses are popular among different ethnic minority groups, from the Thai in the Northern Highlands to the Khmer in the Mekong Delta."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Bài đọc khẳng định nhà sàn rất phổ biến ở "nhiều nhóm dân tộc thiểu số khác nhau" (different ethnic minority groups), do đó nhận định "chỉ một vài nhóm" (only a few) là Sai => <strong>False</strong>.</div>
+              </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-item" id="q-block-5">
+              <div class="question-title">2. All stilt houses look alike.</div>
+              <div class="tf-options">
+                <label class="option-label" id="label-5-T">
+                  <input type="radio" name="q5" value="T">
+                  <span><strong>True</strong> (Đúng)</span>
+                </label>
+                <label class="option-label" id="label-5-F">
+                  <input type="radio" name="q5" value="F">
+                  <span><strong>False</strong> (Sai)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-5">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [A]: "The houses come in different sizes and styles, and show the traditional culture of their owners."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Các ngôi nhà sàn có nhiều kích cỡ và kiểu dáng phong cách khác nhau (different sizes and styles), chứ không hề giống nhau hoàn toàn (look alike) => <strong>False</strong>.</div>
+              </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-item" id="q-block-6">
+              <div class="question-title">3. Family gatherings take place by the open fire in the middle of the house.</div>
+              <div class="tf-options">
+                <label class="option-label" id="label-6-T">
+                  <input type="radio" name="q6" value="T">
+                  <span><strong>True</strong> (Đúng)</span>
+                </label>
+                <label class="option-label" id="label-6-F">
+                  <input type="radio" name="q6" value="F">
+                  <span><strong>False</strong> (Sai)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-6">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [B]: "It has an open fire in the middle of the house. It is the place for family gatherings and receiving guests."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Bếp lửa ở giữa nhà chính là nơi sinh hoạt, tụ họp gia đình và đón tiếp khách khứa => <strong>True</strong>.</div>
+              </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-item" id="q-block-7">
+              <div class="question-title">4. The Rong house serves as the centre of an Ede village.</div>
+              <div class="tf-options">
+                <label class="option-label" id="label-7-T">
+                  <input type="radio" name="q7" value="T">
+                  <span><strong>True</strong> (Đúng)</span>
+                </label>
+                <label class="option-label" id="label-7-F">
+                  <input type="radio" name="q7" value="F">
+                  <span><strong>False</strong> (Sai)</span>
+                </label>
+              </div>
+              <div class="explanation-box" id="exp-7">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [C]: "The Bahnar and Ede have a communal house (called a Rong house) as the heart of their village."</div>
+                <div class="exp-text">💡 <strong>Giải thích:</strong> Nhà rông đóng vai trò như trái tim / trung tâm (the heart = the centre) của buôn làng người Ba Na và Ê Đê => <strong>True</strong>.</div>
+              </div>
+            </div>
+
+            <!-- EXERCISE 3 -->
+            <div class="section-header-box">
+              3. Gap Fill: Fill in each blank with ONE word from the passage
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-item" id="q-block-8">
+              <div class="question-title">1. A stilt house shows the <input type="text" id="input-8" class="input-text" style="display:inline-block; width:150px;" placeholder="one word..." autocomplete="off"> culture of the owner.</div>
+              <div class="explanation-box" id="exp-8">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [A]: "...and show the traditional culture of their owners."</div>
+                <div class="exp-text">💡 <strong>Đáp án đúng:</strong> <strong>traditional</strong> (thuộc về truyền thống).</div>
+              </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-item" id="q-block-9">
+              <div class="question-title">2. The Tay's and Nung's stilt houses overlook a <input type="text" id="input-9" class="input-text" style="display:inline-block; width:150px;" placeholder="one word..." autocomplete="off">.</div>
+              <div class="explanation-box" id="exp-9">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [C]: "The stilt houses of the Tay and Nung usually overlook a field."</div>
+                <div class="exp-text">💡 <strong>Đáp án đúng:</strong> <strong>field</strong> (cánh đồng).</div>
+              </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-item" id="q-block-10">
+              <div class="question-title">3. The Thai's stilt houses overlook a:</div>
+              <div class="dual-input-grid">
+                <div>
+                  <span style="font-size:0.85rem; color:#4b5563;">Blank 1 (Danh từ 1):</span>
+                  <input type="text" id="input-10a" class="input-text" placeholder="forest or mountains..." autocomplete="off">
+                </div>
+                <div>
+                  <span style="font-size:0.85rem; color:#4b5563;">Blank 2 (Danh từ 2):</span>
+                  <input type="text" id="input-10b" class="input-text" placeholder="mountains or forest..." autocomplete="off">
+                </div>
+              </div>
+              <div class="explanation-box" id="exp-10">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [C]: "The stilt houses of the Thai, however, face mountains or a forest."</div>
+                <div class="exp-text">💡 <strong>Đáp án đúng:</strong> <strong>forest</strong> và <strong>mountains</strong> (hoặc <strong>mountain</strong>).</div>
+              </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-item" id="q-block-11">
+              <div class="question-title">4. The largest and tallest house in an Ede village is the <input type="text" id="input-11" class="input-text" style="display:inline-block; width:150px;" placeholder="one word..." autocomplete="off"> house.</div>
+              <div class="explanation-box" id="exp-11">
+                <div class="exp-evidence">🎯 <strong>Dẫn chứng:</strong> Đoạn [C]: "The Bahnar and Ede have a communal house (called a Rong house) as the heart of their village. These communal houses are the largest and tallest ones in the village."</div>
+                <div class="exp-text">💡 <strong>Đáp án đúng:</strong> <strong>communal</strong> (hoặc <strong>Rong</strong>).</div>
+              </div>
+            </div>
+
+            <div class="actions-bar">
+              <button type="button" class="btn btn-submit" onclick="gradeQuiz()">✅ Chấm điểm</button>
+              <button type="button" class="btn btn-reset" onclick="resetQuiz()">🔄 Làm lại</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Shared Vocabulary Popup Element -->
+  <div id="vocabPopup" class="vocab-popup">
+    <div class="popup-header">
+      <div>
+        <span class="popup-word-title" id="popWord">Word</span>
+        <span class="popup-type-tag" id="popType">noun</span>
+      </div>
+      <button class="popup-close" onclick="closePopup()">&times;</button>
+    </div>
+    <div class="popup-ipa">
+      <span id="popIpa">/ipa/</span>
+      <button class="btn-audio" onclick="speakCurrentWord()" title="Nghe phát âm">🔊</button>
+    </div>
+    <div class="popup-meaning" id="popMeaning">Nghĩa tiếng Việt</div>
+    <div class="popup-synonyms" id="popSynonym">🔁 <strong>Synonyms:</strong> <span></span></div>
+    <div class="popup-quote" id="popQuote">"Trích dẫn bài đọc..."</div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // 1. Vocabulary Dataset
+    const vocabList = [
+      { word: "stilt house", type: "noun", ipa: "/stɪlt haʊs/", meaning: "nhà sàn", synonym: "pile dwelling, elevated house" },
+      { word: "ethnic minority", type: "noun", ipa: "/ˈeθnɪk maɪˈnɒrəti/", meaning: "dân tộc thiểu số", synonym: "minority ethnic group" },
+      { word: "traditional", type: "adj", ipa: "/trəˈdɪʃənl/", meaning: "truyền thống, lâu đời", synonym: "customary, ancestral, historic" },
+      { word: "natural material", type: "noun", ipa: "/ˈnætʃrəl məˈtɪəriəl/", meaning: "vật liệu tự nhiên (gỗ, tre, lá)", synonym: "organic material" },
+      { word: "post", type: "noun", ipa: "/pəʊst/", meaning: "cột gỗ, cột chống sàn nhà", synonym: "pillar, pole, column, stake" },
+      { word: "staircase", type: "noun", ipa: "/ˈsteəkeɪs/", meaning: "cầu thang, thang bộ", synonym: "stairs, steps, flight of steps" },
+      { word: "open fire", type: "noun", ipa: "/ˌəʊpən ˈfaɪər/", meaning: "bếp lửa mở giữa nhà", synonym: "hearth, fireplace" },
+      { word: "gathering", type: "noun", ipa: "/ˈɡæðərɪŋ/", meaning: "buổi sum họp, tụ họp quây quần", synonym: "reunion, meeting, get-together" },
+      { word: "overlook", type: "verb", ipa: "/ˌəʊvəˈlʊk/", meaning: "nhìn ra, trông ra (phong cảnh)", synonym: "face, look out on, command a view of" },
+      { word: "communal house", type: "noun", ipa: "/kəˈmjuːnl haʊs/", meaning: "nhà sinh hoạt cộng đồng", synonym: "community hall, town hall" },
+      { word: "Rong house", type: "noun", ipa: "/rɔːŋ haʊs/", meaning: "nhà Rông (Tây Nguyên)", synonym: "traditional communal house" }
+    ];
+
+    // Populate Vocab Table
+    function renderVocabTable() {
+      const tbody = document.getElementById("vocabTableBody");
+      tbody.innerHTML = vocabList.map(item => `
+        <tr>
+          <td class="word-cell">
+            ${item.word} <span style="font-size:0.75rem; color:#6b7280; font-weight:normal;">(${item.type})</span>
+          </td>
+          <td style="font-family: monospace; color: #4b5563;">
+            ${item.ipa} 
+            <button class="btn-audio" onclick="speakText('${item.word}')" title="Phát âm" style="font-size:0.85rem;">🔊</button>
+          </td>
+          <td>${item.meaning}</td>
+          <td style="font-size: 0.83rem; color: #4b5563;">${item.synonym}</td>
+        </tr>
+      `).join('');
+    }
+
+    // 2. Interactive Popup Handler
+    const popup = document.getElementById("vocabPopup");
+    let currentSpeakingWord = "";
+
+    document.querySelectorAll(".vocab-mark").forEach(mark => {
+      mark.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const word = this.getAttribute("data-word");
+        const type = this.getAttribute("data-type");
+        const ipa = this.getAttribute("data-ipa");
+        const meaning = this.getAttribute("data-meaning");
+        const synonym = this.getAttribute("data-synonym");
+        const quote = this.getAttribute("data-quote");
+
+        document.getElementById("popWord").innerText = word;
+        document.getElementById("popType").innerText = type;
+        document.getElementById("popIpa").innerText = ipa;
+        document.getElementById("popMeaning").innerText = meaning;
+        document.getElementById("popSynonym").querySelector("span").innerText = synonym;
+        document.getElementById("popQuote").innerText = `"${quote}"`;
+        currentSpeakingWord = word;
+
+        const rect = this.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+        popup.style.display = "block";
+        
+        let topPos = rect.bottom + scrollTop + 8;
+        let leftPos = rect.left + scrollLeft;
+
+        if (leftPos + 320 > window.innerWidth) {
+          leftPos = window.innerWidth - 335;
+        }
+        if (leftPos < 10) leftPos = 10;
+
+        popup.style.top = `${topPos}px`;
+        popup.style.left = `${leftPos}px`;
+      });
+    });
+
+    function closePopup() {
+      popup.style.display = "none";
+    }
+
+    document.addEventListener("click", function(e) {
+      if (popup.style.display === "block" && !popup.contains(e.target) && !e.target.classList.contains("vocab-mark")) {
+        closePopup();
+      }
+    });
+
+    function speakCurrentWord() {
+      if (currentSpeakingWord) speakText(currentSpeakingWord);
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-GB';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // 3. Grading & Quiz Logic
+    const mcAnswers = {
+      q1: "staircase",
+      q2: "open fire",
+      q3: "posts",
+      q4: "F",
+      q5: "F",
+      q6: "T",
+      q7: "T"
+    };
+
+    function gradeQuiz() {
+      let score = 0;
+      const total = 11; // 7 multiple choice / TF + 4 blanks
+
+      // Grade Q1 - Q7 (Radio buttons)
+      for (let i = 1; i <= 7; i++) {
+        const qName = `q${i}`;
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        const correctVal = mcAnswers[qName];
+        const expBox = document.getElementById(`exp-${i}`);
+
+        // Reset classes
+        const allLabels = document.querySelectorAll(`[id^="label-${i}-"]`);
+        allLabels.forEach(lbl => lbl.classList.remove('is-correct', 'is-wrong'));
+
+        // Highlight correct option in green
+        const correctLbl = document.getElementById(`label-${i}-${correctVal}`);
+        if (correctLbl) correctLbl.classList.add('is-correct');
+
+        if (selected) {
+          if (selected.value === correctVal) {
+            score++;
+          } else {
+            const wrongLbl = document.getElementById(`label-${i}-${selected.value}`);
+            if (wrongLbl) wrongLbl.classList.add('is-wrong');
+          }
+        }
+        if (expBox) expBox.style.display = "block";
+      }
+
+      // Grade Q8 (traditional)
+      const input8 = document.getElementById("input-8");
+      const val8 = input8.value.trim().toLowerCase();
+      input8.classList.remove('is-correct', 'is-wrong');
+      if (val8 === "traditional") {
+        score++;
+        input8.classList.add('is-correct');
+      } else {
+        input8.classList.add('is-wrong');
+      }
+      document.getElementById("exp-8").style.display = "block";
+
+      // Grade Q9 (field)
+      const input9 = document.getElementById("input-9");
+      const val9 = input9.value.trim().toLowerCase();
+      input9.classList.remove('is-correct', 'is-wrong');
+      if (val9 === "field") {
+        score++;
+        input9.classList.add('is-correct');
+      } else {
+        input9.classList.add('is-wrong');
+      }
+      document.getElementById("exp-9").style.display = "block";
+
+      // Grade Q10 (forest or mountains)
+      const input10a = document.getElementById("input-10a");
+      const input10b = document.getElementById("input-10b");
+      const val10a = input10a.value.trim().toLowerCase();
+      const val10b = input10b.value.trim().toLowerCase();
+      input10a.classList.remove('is-correct', 'is-wrong');
+      input10b.classList.remove('is-correct', 'is-wrong');
+
+      const isForestA = (val10a === "forest" || val10a === "a forest");
+      const isMountainA = (val10a === "mountains" || val10a === "mountain");
+      const isForestB = (val10b === "forest" || val10b === "a forest");
+      const isMountainB = (val10b === "mountains" || val10b === "mountain");
+
+      if ((isForestA && isMountainB) || (isMountainA && isForestB)) {
+        score++;
+        input10a.classList.add('is-correct');
+        input10b.classList.add('is-correct');
+      } else {
+        if (isForestA || isMountainA) input10a.classList.add('is-correct');
+        else input10a.classList.add('is-wrong');
+
+        if (isForestB || isMountainB) input10b.classList.add('is-correct');
+        else input10b.classList.add('is-wrong');
+      }
+      document.getElementById("exp-10").style.display = "block";
+
+      // Grade Q11 (communal / rong)
+      const input11 = document.getElementById("input-11");
+      const val11 = input11.value.trim().toLowerCase();
+      input11.classList.remove('is-correct', 'is-wrong');
+      if (val11 === "communal" || val11 === "rong") {
+        score++;
+        input11.classList.add('is-correct');
+      } else {
+        input11.classList.add('is-wrong');
+      }
+      document.getElementById("exp-11").style.display = "block";
+
+      // Update sticky score header
+      const scoreDisplay = document.getElementById("scoreDisplay");
+      scoreDisplay.innerText = `${score} / ${total}`;
+      scoreDisplay.style.color = score >= 9 ? "#4ade80" : score >= 6 ? "#fbbf24" : "#f87171";
+    }
+
+    // 4. Reset Function
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+
+      // Reset labels and inputs
+      document.querySelectorAll(".option-label").forEach(lbl => lbl.classList.remove('is-correct', 'is-wrong'));
+      document.querySelectorAll(".input-text").forEach(inp => inp.classList.remove('is-correct', 'is-wrong'));
+      document.querySelectorAll(".explanation-box").forEach(box => box.style.display = "none");
+
+      const scoreDisplay = document.getElementById("scoreDisplay");
+      scoreDisplay.innerText = `0 / 11`;
+      scoreDisplay.style.color = "#fbbf24";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderVocabTable();
+    });
+  </script>
+</body>
+</html>
